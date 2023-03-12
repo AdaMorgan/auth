@@ -4,7 +4,6 @@ plugins {
 }
 
 group 'com.example'
-version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
@@ -14,12 +13,24 @@ ext {
     junitVersion = '5.8.1'
 }
 
-sourceCompatibility = '1.8'
-targetCompatibility = '1.8'
+jar {
+    baseName 'auth'
+}
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
+
+//task buildReact(type: Exec) {
+//    workingDir '../react-app'
+//    commandLine 'npm', 'run', 'build'
+//}
+//
+//war.dependsOn buildReact
+//
+//war {
+//    from '.../react-app/build' into 'static'
+//}
 
 dependencies {
     compileOnly('jakarta.platform:jakarta.jakartaee-api:9.1.0')
@@ -33,4 +44,9 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+wrapper {
+    gradleVersion '8.0'
+    distributionUrl distributionUrl.replace("bin", "all")
 }
